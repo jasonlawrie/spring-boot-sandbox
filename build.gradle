@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'war'
+	id "com.microsoft.azure.azurewebapp" version "1.2.0"
 }
 
 group = 'com.jlawrie'
@@ -20,4 +21,20 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+azurewebapp {
+	subscription = 'Azure subscription 1'
+	resourceGroup = 'jlawrietest'
+	appName = 'jlawrietest'
+	pricingTier = 'F1'
+	region = 'eastus'
+	runtime {
+		os = 'Linux'
+		webContainer = 'Java SE'
+		javaVersion = 'Java 17'
+	}
+	auth {
+		type = 'azure_cli' // support azure_cli, oauth2, device_code and service_principal
+	}
 }
